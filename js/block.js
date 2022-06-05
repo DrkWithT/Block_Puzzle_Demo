@@ -3,7 +3,7 @@
  * @author Derek T
  */
 
-/** @type {object} Enum for block orientations. */
+/** @type {object} Enum for block orientations by the x or y axis. */
 const ORIENTATIONS = {
 	UP: 0,   // +y
 	DOWN: 1, // -y
@@ -170,7 +170,7 @@ class Block {
 		let x_step = 0 // x-jump
 		let y_step = 0 // y-jump
 
-		(goForward) ? step_factor = 1: step_factor = -1
+		(goForward) ? step_factor = 1 : step_factor = -1;
 
 		switch (this.#orientation) {
 			case ORIENTATIONS.UP:

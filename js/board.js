@@ -124,10 +124,16 @@ class Board {
                 let temp = this.#blockList[update_iter];
 
                 collides = temp.hasTileLocation(future_edge_pt);
+                
+                if (collides) break;
             }
 
-            if (collides) break;
         }
+
+        let status = !outside && !collides;
+
+        if (status)
+            this.#blockList[this.#selectionIdx].moveSelf(goingForth);
 
         return !outside && !collides;
     }
