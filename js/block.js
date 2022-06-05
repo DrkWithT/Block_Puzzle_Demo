@@ -9,26 +9,26 @@ const ORIENTATIONS = {
 	DOWN: 1, // -y
 	LEFT: 2, // -x
 	RIGHT: 3 // +x
-}
+};
 
 /** @type {number} How many tiles a block can move at a time. */
-const MOVE_SPEED = 1
+const MOVE_SPEED = 1;
 
 class Block {
 	/** @type {Array<object>} An array of 2d coords of all tiles in the block. */
-	#tilePoints
+	#tilePoints;
 
 	/** @type {number} Count of tiles taken by this block. */
-	#tileCount
+	#tileCount;
 
 	/** @type {number} See ORIENTATIONS for all possible values. */
-	#orientation
+	#orientation;
 
 	/** @type {string} See `color` param in `Block()`. */
-	#renderColor
+	#renderColor;
 
 	/** @type {boolean} If this block is the targeted block that must be moved to the other side. ("Solve" condition) */
-	#forGoal
+	#forGoal;
 
 	/**
 	 * @constructor
@@ -39,58 +39,58 @@ class Block {
 	 * @param {boolean} isForGoal See Block.#forGoal for information.
 	 */
 	constructor (originPoint, length, orientation, color, isForGoal) {
-		let generate_x = originPoint.x
-		let generate_y = originPoint.y
-		let x_step = 0
-		let y_step = 0
+		let generate_x = originPoint.x;
+		let generate_y = originPoint.y;
+		let x_step = 0;
+		let y_step = 0;
 
 		// NOTE: since the canvas origin is at the top left corner: y-directions are actually reversed.
 		switch (orientation) {
 			case ORIENTATIONS.UP:
-				y_step = -1
-				break
+				y_step = -1;
+				break;
 			case ORIENTATIONS.DOWN:
-				y_step = 1
-				break
+				y_step = 1;
+				break;
 			case ORIENTATIONS.LEFT:
-				x_step = -1
-				break
+				x_step = -1;
+				break;
 			case ORIENTATIONS.RIGHT:
-				x_step = 1
-				break
+				x_step = 1;
+				break;
 			default:
-				throw new Error('Unknown Orientation code. See constant ORIENTATIONS.')
+				throw new Error('Unknown Orientation code. See constant ORIENTATIONS.');
 		}
 
-		this.#tilePoints = []
-		this.#tileCount = length
-		this.#orientation = orientation
+		this.#tilePoints = [];
+		this.#tileCount = length;
+		this.#orientation = orientation;
 		this.#renderColor = color;
 		
 		// NOTE: generate a gapless sequence of tile locations taken by this block, based on the given orientation. Extend from the origin location tile!
 		for(var iter = 0; iter < this.#tileCount; iter++) {
 			this.#tilePoints.push(
 				{x: generate_x, y: generate_y}
-			)
-			generate_x += x_step
-			generate_y += y_step
+			);
+			generate_x += x_step;
+			generate_y += y_step;
 		}
 
-		this.#forGoal = isForGoal
+		this.#forGoal = isForGoal;
 	}
 
-	get getLength() { return this.#tileCount }
+	get getLength() { return this.#tileCount; }
 
-	get getDrawColor() { return this.#renderColor }
+	get getDrawColor() { return this.#renderColor; }
 
-	get isGoalBlock() { return this.#forGoal }
+	get isGoalBlock() { return this.#forGoal; }
 
 	/**
 	 * @method
 	 * @param {number} idx 
 	 * @returns {object} The coords of a block's member tile or undefined..
 	 */
-	getTileByIdx(idx) { return this.#tilePoints[idx] }
+	getTileByIdx(idx) { return this.#tilePoints[idx]; }
 
 	/**
 	 * @method
@@ -99,35 +99,35 @@ class Block {
 	 * @returns {object} The coords of the future location of the block's moving tip.
 	 */
 	getFutureEdge(goForward) {
-		let edge_index = undefined // location of original edge
+		let edge_index = undefined; // location of original edge
 		/** @type {object} */
-		let edge_pt = null // future location of edge 
+		let edge_pt = null; // future location of edge 
 
 		// Determine location of moving edge tile: backwards goes to origin BUT forwards goes "out" from origin. Thus, the backwards tip is the origin AND the forwards tip is the last block tile from the origin.
-		(goForward) ? edge_index = this.#tileCount - 1 : edge_index = 0
+		(goForward) ? edge_index = this.#tileCount - 1 : edge_index = 0;
 
 		// Set copy of block's moving edge tile!
-		edge_pt = Object.assign({}, this.#tilePoints[edge_index])
+		edge_pt = Object.assign({}, this.#tilePoints[edge_index]);
 
 		// Modify the edge tile's coord copy to be the future coord.
 		switch (this.#orientation) {
 			case ORIENTATIONS.UP:
-				edge_pt.y -= MOVE_SPEED
-				break
+				edge_pt.y -= MOVE_SPEED;
+				break;
 			case ORIENTATIONS.DOWN:
-				edge_pt.y += MOVE_SPEED
-				break
+				edge_pt.y += MOVE_SPEED;
+				break;
 			case ORIENTATIONS.LEFT:
-				edge_pt.x -= MOVE_SPEED
-				break
+				edge_pt.x -= MOVE_SPEED;
+				break;
 			case ORIENTATIONS.RIGHT:
-				edge_pt.x += MOVE_SPEED
-				break
+				edge_pt.x += MOVE_SPEED;
+				break;
 			default:
-				break
+				break;
 		}
 
-		return edge_pt
+		return edge_pt;
 	}
 
 	/**
@@ -135,30 +135,30 @@ class Block {
 	 * @param {object} tileLocation Coords of the tile location to check if it's inside this block. Form is `{x: <int>, y: <int>}`.
 	 */
 	hasTileLocation(tileLocation) {
-		let tile_x = tileLocation.x
-		let tile_y = tileLocation.y
-		let along_block = false
-		let inside_block_span = false
+		let tile_x = tileLocation.x;
+		let tile_y = tileLocation.y;
+		let along_block = false;
+		let inside_block_span = false;
 
 		switch (this.#orientation) {
 			case ORIENTATIONS.UP:
-				along_block = (tile_x === this.#tilePoints[0].x)
-				inside_block_span = (tile_y <= this.#tilePoints[0].y && tile_y >= this.#tilePoints[this.#tileCount - 1].y)
-				break
+				along_block = (tile_x === this.#tilePoints[0].x);
+				inside_block_span = (tile_y <= this.#tilePoints[0].y && tile_y >= this.#tilePoints[this.#tileCount - 1].y);
+				break;
 			case ORIENTATIONS.DOWN:
-				along_block = (tile_x === this.#tilePoints[0].x)
-				inside_block_span = (tile_y >= this.#tilePoints[0].y && tile_y <= this.#tilePoints[this.#tileCount - 1].y)
-				break
+				along_block = (tile_x === this.#tilePoints[0].x);
+				inside_block_span = (tile_y >= this.#tilePoints[0].y && tile_y <= this.#tilePoints[this.#tileCount - 1].y);
+				break;
 			case ORIENTATIONS.LEFT:
-				along_block = (tile_y === this.#tilePoints[0].y)
-				inside_block_span = (tile_x <= this.#tilePoints[0].x && tile_x >= this.#tilePoints[this.#tileCount - 1].x)
-				break
+				along_block = (tile_y === this.#tilePoints[0].y);
+				inside_block_span = (tile_x <= this.#tilePoints[0].x && tile_x >= this.#tilePoints[this.#tileCount - 1].x);
+				break;
 			case ORIENTATIONS.RIGHT:
-				along_block = (tile_y === this.#tilePoints[0].y)
-				inside_block_span = (tile_x >= this.#tilePoints[0].x && tile_x <= this.#tilePoints[this.#tileCount - 1].x)
-				break
+				along_block = (tile_y === this.#tilePoints[0].y);
+				inside_block_span = (tile_x >= this.#tilePoints[0].x && tile_x <= this.#tilePoints[this.#tileCount - 1].x);
+				break;
 			default:
-				break
+				break;
 		}
 
 		return along_block && inside_block_span

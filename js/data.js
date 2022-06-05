@@ -4,7 +4,7 @@
  */
 
 /** @type {number} Tile count per board side. */
-const BOARD_SIDE_COUNT = 5
+const BOARD_SIDE_COUNT = 5;
 
 /** @type {object} The coordinate of the red block to be at for "winning" the puzzle. */
 const GOAL_POS = {
