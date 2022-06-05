@@ -63,12 +63,12 @@ class Block {
 		}
 
 		this.#tilePoints = [];
-		this.#tileCount = length;
+		this.#tileCount = 0;
 		this.#orientation = orientation;
 		this.#renderColor = color;
 		
 		// NOTE: generate a gapless sequence of tile locations taken by this block, based on the given orientation. Extend from the origin location tile!
-		for(var iter = 0; iter < this.#tileCount; iter++) {
+		for(var iter = 0; iter < length; iter++) {
 			this.#tilePoints.push(
 				{x: generate_x, y: generate_y}
 			);
@@ -76,6 +76,7 @@ class Block {
 			generate_y += y_step;
 		}
 
+		this.#tileCount = this.#tilePoints.length;
 		this.#forGoal = isForGoal;
 	}
 
