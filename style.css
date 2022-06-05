@@ -1,0 +1,59 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+	overflow: auto;
+	display: block;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 15%;
+	background-color: rgb(45, 45, 60);
+	font-family: Arial, sans-serif;
+	color: white;
+}
+
+article#game-container {
+	display: flex;
+	flex-direction: column;
+	width: auto;
+	height: auto;
+	background-color: rgb(55, 55, 75);
+	color: inherit;
+}
+
+div.game-panel {
+	display: block;
+	padding: 16px;
+	text-align: center;
+	align-items: center;
+}
+
+canvas#screen {
+	display: block;
+	border: solid 2px gray;
+}
+
+span {
+	display: inline-block;
+	margin: 8px;
+}
+
+button.pg-btn {
+	display: inline-block;
+	padding: 8px;
+	border: none;
+	background-color: rgb(115, 180, 115);
+	color: rgb(35, 35, 35);
+}
+
+button.pg-btn:hover {
+	background-color: rgb(155, 250, 155);
+	color: black;
+}
+
+button.pg-btn:focus {
+	outline: none;
+}

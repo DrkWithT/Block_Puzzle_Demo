@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<meta name="author" content="Derek T">
+	<title>Dragger Game Demo</title>
+	<link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+	<!-- Game UI -->
+	<article id="game-container">
+		<div class="game-panel">
+			<canvas id="screen"></canvas>
+		</div>
+		<div class="game-panel">
+			<span>Piece&colon;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			<span id="choice-indicator">?</span>
+			<button class="pg-btn">Forward</button>
+			<button class="pg-btn">Backward</button>
+			<button class="pg-btn">Reset</button>
+		</div>
+	</article>
+	<!-- Game Scripts -->
+	<script src="./js/data.js"></script>
+	<script src="./js/block.js"></script>
+	<script src="./js/board.js"></script>
+	<script src="./js/main.js"></script>
+</body>
+
+</html>
