@@ -64,8 +64,8 @@ const AUTHOR = 'Derk';
                 CanvasElement.addEventListener('click',
                     /** @param {MouseEvent} event */
                     (event) => {
-                        let tile_x = event.offsetX / TILE_SCREEN_DIM;
-                        let tile_y = event.offsetY / TILE_SCREEN_DIM;
+                        let tile_x = Math.floor(event.offsetX / TILE_SCREEN_DIM);
+                        let tile_y = Math.floor(event.offsetY / TILE_SCREEN_DIM);
 
                         let tile_coord = {
                             x: tile_x,
