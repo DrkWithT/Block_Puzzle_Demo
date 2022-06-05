@@ -71,7 +71,13 @@ class Board {
                 let data_entry = blockData[setup_iter] || null;
 
                 if (data_entry !== null)
-                    this.#blockList.push(new Block(data_entry.origin, data_entry.length, data_entry.orientation, data_entry.color, data_entry.goal));
+                    this.#blockList.push(
+                        new Block(data_entry.origin,
+                            data_entry.length,
+                            data_entry.orientation,
+                            data_entry.color,
+                            data_entry.goal
+                    ));
             }
         }
 
@@ -115,7 +121,7 @@ class Board {
         for (; update_iter < this.#blockCount; update_iter++) {
             // do not check self-collision of currently selected block
             if (update_iter !== this.#selectionIdx) {
-                let temp = this.#blockList[i];
+                let temp = this.#blockList[update_iter];
 
                 collides = temp.hasTileLocation(future_edge_pt);
             }
@@ -147,7 +153,7 @@ class Board {
             this.#screenCtx.fillStyle = render_color;
 
             let tile_idx = 0;
-            
+
             for (; tile_idx < block_temp.getLength; tile_idx++) {
                 let tile_coord = block_temp.getTileByIdx(tile_idx);
                 
