@@ -100,12 +100,19 @@ class Block {
 	 * @returns {object} The coords of the future location of the block's moving tip.
 	 */
 	getFutureEdge(goForward) {
-		let edge_index = undefined; // location of original edge
+		let edge_index = undefined;    // location of original edge
 		/** @type {object} */
-		let edge_pt = null; // future location of edge 
+		let edge_pt = null;            // future location of edge
+		let step_modifier = undefined; // scalar for moving original edge to its future place based on goForward
 
-		// Determine location of moving edge tile: backwards goes to origin BUT forwards goes "out" from origin. Thus, the backwards tip is the origin AND the forwards tip is the last block tile from the origin.
-		(goForward) ? edge_index = this.#tileCount - 1 : edge_index = 0;
+		// Determine location of moving edge tile: backwards goes to origin BUT forwards goes "out" from origin. Thus, the backwards tip is the origin AND the forwards tip is the last block tile from the origin. Also, set the step_modifier.
+		if (goForward) {
+			edge_index = this.#tileCount - 1;
+			step_modifier = 1;
+		} else {
+			edge_index = 0;
+			step_modifier = -1;
+		}
 
 		// Set copy of block's moving edge tile!
 		edge_pt = Object.assign({}, this.#tilePoints[edge_index]);
@@ -113,16 +120,16 @@ class Block {
 		// Modify the edge tile's coord copy to be the future coord.
 		switch (this.#orientation) {
 			case ORIENTATIONS.UP:
-				edge_pt.y -= MOVE_SPEED;
+				edge_pt.y -= MOVE_SPEED * step_modifier;
 				break;
 			case ORIENTATIONS.DOWN:
-				edge_pt.y += MOVE_SPEED;
+				edge_pt.y += MOVE_SPEED * step_modifier;
 				break;
 			case ORIENTATIONS.LEFT:
-				edge_pt.x -= MOVE_SPEED;
+				edge_pt.x -= MOVE_SPEED * step_modifier;
 				break;
 			case ORIENTATIONS.RIGHT:
-				edge_pt.x += MOVE_SPEED;
+				edge_pt.x += MOVE_SPEED * step_modifier;
 				break;
 			default:
 				break;

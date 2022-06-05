@@ -107,15 +107,14 @@ class Board {
      * @returns {boolean} If the block moved without going out of bounds or colliding.
      */
     updateBlock(goingForth) {
-        let outside = false;  // if block can stick outside of board bounds
-        let collides = false; // if block can collide with another
+        let outside_x = false;  // if block sticks outside horizontally
+        let outside_y = false;  // if block sticks outside vertically
+        let collides = false;   // if block can collide with another
 
         let future_edge_pt = this.#blockList[this.#selectionIdx].getFutureEdge(goingForth);
 
-        outside = (future_edge_pt.x < 0
-        || future_edge_pt.x >= this.#sideLen
-        || future_edge_pt.y < 0
-        || future_edge_pt.y >= this.#sideLen);
+        outside_x = (future_edge_pt.x < 0 || future_edge_pt.x >= this.#sideLen)
+        outside_y = (future_edge_pt.y < 0 || future_edge_pt.y >= this.#sideLen);
 
         let update_iter = 0;
         for (; update_iter < this.#blockCount; update_iter++) {
@@ -130,12 +129,12 @@ class Board {
 
         }
 
-        let status = !outside && !collides;
+        let status = !outside_x && !outside_y && !collides;
 
         if (status)
             this.#blockList[this.#selectionIdx].moveSelf(goingForth);
 
-        return !outside && !collides;
+        return status;
     }
 
     /**
