@@ -166,9 +166,9 @@ class Block {
 	}
 
 	moveSelf(goForward) {
-		let step_factor = undefined // +1 or -1 for forward or backward respectively
-		let x_step = 0 // x-jump
-		let y_step = 0 // y-jump
+		let step_factor = undefined; // +1 or -1 for forward or backward respectively
+		let x_step = 0; // x-jump
+		let y_step = 0; // y-jump
 
 		(goForward) ? step_factor = 1 : step_factor = -1;
 
@@ -189,8 +189,8 @@ class Block {
 
 		// Update coords of each tile in this block.
 		for (var iter = 0; iter < this.#tileCount; iter++) {
-			this.#tilePoints[iter].x += x_step
-			this.#tilePoints[iter].y += y_step
+			this.#tilePoints[iter].x += x_step;
+			this.#tilePoints[iter].y += y_step;
 		}
 	}
 }
