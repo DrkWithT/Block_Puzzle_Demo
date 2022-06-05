@@ -28,11 +28,10 @@ div.game-panel {
 	display: block;
 	padding: 16px;
 	text-align: center;
-	align-items: center;
 }
 
 canvas#screen {
-	display: block;
+	display: inline-block;
 	border: solid 2px gray;
 }
 
