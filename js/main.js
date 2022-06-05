@@ -19,11 +19,11 @@ const AUTHOR = 'Derk';
         CanvasElement.setAttribute('height', TILE_SCREEN_DIM * BOARD_SIDE_COUNT);
 
         let ChoiceIndicator = doc.getElementById('choice-indicator');
-        let ButtonList = doc.getElementsByClassName('.pg-btn');
+        let ButtonList = doc.getElementsByClassName('pg-btn');
 
-        let ForwardBtn = ButtonList[0];
-        let BackwardBtn = ButtonList[1];
-        let ResetBtn = ButtonList[2];
+        let ForwardBtn = ButtonList.item(0);
+        let BackwardBtn = ButtonList.item(1);
+        let ResetBtn = ButtonList.item(2);
 
         /// Main game object:
         /** @type {Board|null} */
