@@ -65,8 +65,10 @@ class Board {
      */
     #setupBlocks(blockData) {
         if (blockData !== null) {
-            for (var iter = 0; iter < blockData.length; iter++) {
-                let data_entry = blockData[i] || null;
+            let setup_iter = 0;
+
+            for (; setup_iter < blockData.length; setup_iter++) {
+                let data_entry = blockData[setup_iter] || null;
 
                 if (data_entry !== null)
                     this.#blockList.push(new Block(data_entry.origin, data_entry.length, data_entry.orientation, data_entry.color, data_entry.goal));
@@ -109,10 +111,10 @@ class Board {
         || future_edge_pt.y < 0
         || future_edge_pt.y >= this.#sideLen);
 
-        let iter = 0;
-        for (; iter < this.#blockCount; iter++) {
+        let update_iter = 0;
+        for (; update_iter < this.#blockCount; update_iter++) {
             // do not check self-collision of currently selected block
-            if (i !== this.#selectionIdx) {
+            if (update_iter !== this.#selectionIdx) {
                 let temp = this.#blockList[i];
 
                 collides = temp.hasTileLocation(future_edge_pt);
@@ -135,13 +137,18 @@ class Board {
         this.#screenCtx.fillRect(0, 0, screen_side, screen_side);
 
         // render blocks
-        for (var iter = 0; iter < this.#blockCount; iter++) {
+        let render_iter = 0;
+
+        for (; render_iter < this.#blockCount; render_iter++) {
             // prepare color before dawring current block's tiles...
-            let block_temp = this.#blockList[iter];
+            let block_temp = this.#blockList[render_iter];
             let render_color = block_temp.getDrawColor;
+
             this.#screenCtx.fillStyle = render_color;
 
-            for (var tile_idx = 0; tile_idx < block_temp.getLength; tile_idx++) {
+            let tile_idx = 0;
+            
+            for (; tile_idx < block_temp.getLength; tile_idx++) {
                 let tile_coord = block_temp.getTileByIdx(tile_idx);
                 
                 this.#screenCtx.fillRect(
