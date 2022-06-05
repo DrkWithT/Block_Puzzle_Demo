@@ -65,7 +65,7 @@ class Board {
      */
     #setupBlocks(blockData) {
         if (blockData !== null) {
-            for (var i = 0; i < blockData.length; i++) {
+            for (var iter = 0; iter < blockData.length; iter++) {
                 let data_entry = blockData[i] || null;
 
                 if (data_entry !== null)
@@ -109,7 +109,8 @@ class Board {
         || future_edge_pt.y < 0
         || future_edge_pt.y >= this.#sideLen);
 
-        for (var i = 0; i < this.#blockCount; i++) {
+        let iter = 0;
+        for (; iter < this.#blockCount; iter++) {
             // do not check self-collision of currently selected block
             if (i !== this.#selectionIdx) {
                 let temp = this.#blockList[i];
@@ -134,14 +135,14 @@ class Board {
         this.#screenCtx.fillRect(0, 0, screen_side, screen_side);
 
         // render blocks
-        for (var i = 0; i < this.#blockCount; i++) {
+        for (var iter = 0; iter < this.#blockCount; iter++) {
             // prepare color before dawring current block's tiles...
-            let block_temp = this.#blockList[i];
+            let block_temp = this.#blockList[iter];
             let render_color = block_temp.getDrawColor;
             this.#screenCtx.fillStyle = render_color;
 
-            for (var i = 0; i < block_temp.getLength; i++) {
-                let tile_coord = block_temp.getTileByIdx(i);
+            for (var tile_idx = 0; tile_idx < block_temp.getLength; tile_idx++) {
+                let tile_coord = block_temp.getTileByIdx(tile_idx);
                 
                 this.#screenCtx.fillRect(
                     tile_coord.x * TILE_SCREEN_DIM,
