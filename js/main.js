@@ -39,13 +39,8 @@ const AUTHOR = 'Derk';
 
         /// Helper functions:
         function activateGameBtns(canUse) {
-            if (canUse) {
-                ForwardBtn.setAttribute('disabled', 'true');
-                BackwardBtn.setAttribute('disabled', 'true');
-            } else {
-                ForwardBtn.removeAttribute('disabled');
-                BackwardBtn.removeAttribute('disabled');
-            }
+            ForwardBtn.disabled = !canUse;
+            BackwardBtn.disabled = !canUse;
         }
 
         function endLevel() {
