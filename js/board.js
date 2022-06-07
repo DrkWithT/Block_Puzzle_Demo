@@ -40,8 +40,7 @@ class Board {
     constructor (screenElement, sideLength, blockData) {
         this.#screenElem = screenElement || null;
 
-        if (!this.#screenElem)
-            throw new Error('Cannot create board with no HTML canvas.');
+        if (!this.#screenElem) throw new Error('Cannot create board with no HTML canvas.');
         
         this.#screenCtx = this.#screenElem.getContext('2d');
         this.#sideLen = sideLength;
@@ -49,12 +48,13 @@ class Board {
         this.#blockCount = 0;
         this.#ready = false;
         
-        if (!blockData)
-        throw new Error('Cannot create board with invalid blockData argument.');
+        if (!blockData) throw new Error('Cannot create board with invalid blockData argument.');
         
-        this.#setupBlocks(blockData)
-        this.#selectionIdx = 0
-        this.#targetBlockIdx = this.#blockList.findIndex((block) => { return block.isGoalBlock; })
+        this.#setupBlocks(blockData);
+        this.#selectionIdx = 0;
+        this.#targetBlockIdx = this.#blockList.findIndex((block) => { return block.isGoalBlock; });
+
+        if (!this.isReady()) throw new Error('Invalid canvas arg or board dimensions.');
     }
 
     isReady() { return this.#ready; }
@@ -70,7 +70,7 @@ class Board {
             for (; setup_iter < blockData.length; setup_iter++) {
                 let data_entry = blockData[setup_iter] || null;
 
-                if (data_entry !== null)
+                if (data_entry !== null) {
                     this.#blockList.push(
                         new Block(data_entry.origin,
                             data_entry.length,
@@ -78,6 +78,7 @@ class Board {
                             data_entry.color,
                             data_entry.goal
                     ));
+                }
             }
         }
 

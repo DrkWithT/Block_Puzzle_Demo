@@ -53,7 +53,7 @@ const AUTHOR = 'Derk';
             console.log(`Setup error:\n${err}`);
         } finally {
             // prepare listners safely: check if the game objects were setup well
-            if (BoardObj !== null && BoardObj.isReady()) {
+            if (BoardObj !== null) {
                 ForwardBtn.addEventListener('click',
                     () => {
                         if (BoardObj.updateBlock(true)) BoardObj.renderBlocks();
