@@ -48,12 +48,12 @@ const AUTHOR = 'Derk';
 
         try {
             BoardObj = new Board(CanvasElement, BOARD_SIDE_COUNT, DEMO_DATA);
+            ModalObj = new Modal(ModalDiv);
         } catch (err) {
             console.log(`Setup error:\n${err}`);
         } finally {
+            // prepare listners safely: check if the game objects were setup well
             if (BoardObj !== null && BoardObj.isReady()) {
-                /// setup game listeners...
-
                 ForwardBtn.addEventListener('click',
                     () => {
                         if (BoardObj.updateBlock(true)) BoardObj.renderBlocks();
@@ -81,18 +81,17 @@ const AUTHOR = 'Derk';
 
                         if (choice_idx !== -1) ChoiceIndicator.innerText = `${choice_idx}`;
                     });
-                
+            }
+
+            if (ModalObj !== null) {
                 InfoBtn.addEventListener('click', (event) => {
                     if (event.button) ModalObj.toggleDisplay();
                     else event.preventDefault();
                 });
-                
-                console.log('Setup is OK!');
             }
         }
 
-        // pre-render blocks before game begins
-        BoardObj.renderBlocks();
+        BoardObj.renderBlocks(); // pre-render blocks before game begins
 
         console.log(`Block Puzzle by ${AUTHOR}`);
     }
