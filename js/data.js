@@ -12,7 +12,11 @@ const GOAL_POS = {
     y: 2
 };
 
-/** @type {Array<object>} */
+/**
+ * @constant DEMO_DATA
+ * @brief A list of all block data for the demo level.
+ * @type {Array<object>}
+ */
 const DEMO_DATA = [
     {
         origin: {
