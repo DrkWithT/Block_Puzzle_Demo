@@ -35,7 +35,7 @@ const AUTHOR = 'Derk';
         let ModalObj = null;
 
         /// Helper functions:
-        function disableAllBtns() {
+        function disableGameBtns() {
             ForwardBtn.setAttribute('disabled', 'true');
             BackwardBtn.setAttribute('disabled', 'true');
             InfoBtn.setAttribute('disabled', 'true');
@@ -43,7 +43,7 @@ const AUTHOR = 'Derk';
 
         function endGame() {
             alert('The puzzle is solved!');
-            disableAllBtns();
+            disableGameBtns();
         }
 
         try {
@@ -83,7 +83,8 @@ const AUTHOR = 'Derk';
                     });
                 
                 InfoBtn.addEventListener('click', (event) => {
-                    console.log('Modal dummy listener!');
+                    if (event.button) ModalObj.toggleDisplay();
+                    else event.preventDefault();
                 });
                 
                 console.log('Setup is OK!');
