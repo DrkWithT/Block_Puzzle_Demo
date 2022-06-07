@@ -10,6 +10,17 @@
 </head>
 
 <body>
+	<!-- Help Modal -->
+	<div id="modal-overlay">
+		<div id="page-modal">
+			<h4>Demo Info</h4><br>
+			<p>
+				Click on a piece to select it before moving it backward or forward along its girth.<br>
+				When the red piece is done, an alert will popup telling that you completed the demo.
+			</p>
+			<button id="modal-btn">Dismiss</button>
+		</div>
+	</div>
 	<!-- Game UI -->
 	<article id="game-container">
 		<div class="game-panel">
@@ -20,7 +31,7 @@
 			<span id="choice-indicator">?</span>
 			<button class="pg-btn">Forward</button>
 			<button class="pg-btn">Backward</button>
-			<button class="pg-btn">Reset</button>
+			<button class="pg-btn">Info</button>
 		</div>
 	</article>
 	<!-- Game Scripts -->

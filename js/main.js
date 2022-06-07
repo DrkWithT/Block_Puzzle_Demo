@@ -14,6 +14,8 @@ const AUTHOR = 'Derk';
      */
     function (doc) {
         /// DOM objects:
+        let ModalDiv = doc.getElementById('modal-overlay');
+
         let CanvasElement = doc.getElementById('screen');
         CanvasElement.setAttribute('width', TILE_SCREEN_DIM * BOARD_SIDE_COUNT);
         CanvasElement.setAttribute('height', TILE_SCREEN_DIM * BOARD_SIDE_COUNT);
@@ -23,17 +25,20 @@ const AUTHOR = 'Derk';
 
         let ForwardBtn = ButtonList.item(0);
         let BackwardBtn = ButtonList.item(1);
-        let ResetBtn = ButtonList.item(2);
+        let InfoBtn = ButtonList.item(2);
 
-        /// Main game object:
+        /// Main game objects:
         /** @type {Board|null} */
         let BoardObj = null;
+
+        /** @type {Modal} */
+        let ModalObj = null;
 
         /// Helper functions:
         function disableAllBtns() {
             ForwardBtn.setAttribute('disabled', 'true');
             BackwardBtn.setAttribute('disabled', 'true');
-            ResetBtn.setAttribute('disabled', 'true');
+            InfoBtn.setAttribute('disabled', 'true');
         }
 
         function endGame() {
@@ -77,8 +82,8 @@ const AUTHOR = 'Derk';
                         if (choice_idx !== -1) ChoiceIndicator.innerText = `${choice_idx}`;
                     });
                 
-                ResetBtn.addEventListener('click', (event) => {
-                    console.log('Reset: Dummy listener.');
+                InfoBtn.addEventListener('click', (event) => {
+                    console.log('Modal dummy listener!');
                 });
                 
                 console.log('Setup is OK!');
