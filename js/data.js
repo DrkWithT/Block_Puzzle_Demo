@@ -3,14 +3,21 @@
  * @author Derek Tan
  */
 
-/** @type {number} Tile count per board side. */
-const BOARD_SIDE_COUNT = 5;
+/** @type {Array<number>} Tile counts for a Board side in each level. */
+const BOARD_SIDE_LENGTHS = [5, 6];
+const LEVEL_COUNT = BOARD_SIDE_LENGTHS.length;
 
-/** @type {object} The coordinate of the red block to be at for "winning" the puzzle. */
-const GOAL_POS = {
-    x: 4,
-    y: 2
-};
+/** @type {Array<object>} The coordinates of the red block to be at for "winning" puzzles. */
+const GOAL_POSITIONS = [
+    { // level 1
+        x: 4,
+        y: 2
+    },
+    { // level 2
+        x: 5,
+        y: 3
+    }
+];
 
 /**
  * @constant DEMO_DATA
@@ -18,64 +25,92 @@ const GOAL_POS = {
  * @type {Array<object>}
  */
 const DEMO_DATA = [
-    {
-        origin: {
-            x: 0,
-            y: 2
+    [ // level 1
+        {
+            origin: {x: 0, y: 2},
+            length: 2,
+            orientation: ORIENTATIONS.RIGHT,
+            color: 'red',
+            goal: true
         },
-        length: 2,
-        orientation: ORIENTATIONS.RIGHT,
-        color: 'red',
-        goal: true
-    },
-    {
-        origin: {
-            x: 2,
-            y: 2
+        {
+            origin: {x: 2, y: 2},
+            length: 2,
+            orientation: ORIENTATIONS.DOWN,
+            color: 'orange',
+            goal: false
         },
-        length: 2,
-        orientation: ORIENTATIONS.DOWN,
-        color: 'orange',
-        goal: false
-    },
-    {
-        origin: {
-            x: 2,
-            y: 0
+        {
+            origin: {x: 2, y: 0},
+            length: 3,
+            orientation: ORIENTATIONS.RIGHT,
+            color: 'yellow',
+            goal: false
         },
-        length: 3,
-        orientation: ORIENTATIONS.RIGHT,
-        color: 'yellow',
-        goal: false
-    },
-    {
-        origin: {
-            x: 2,
-            y: 4
+        {
+            origin: {x: 2, y: 4},
+            length: 2,
+            orientation: ORIENTATIONS.RIGHT,
+            color: 'green',
+            goal: false
         },
-        length: 2,
-        orientation: ORIENTATIONS.RIGHT,
-        color: 'green',
-        goal: false
-    },
-    {
-        origin: {
-            x: 4,
-            y: 4
+        {
+            origin: {x: 4, y: 4},
+            length: 2,
+            orientation: ORIENTATIONS.UP,
+            color: 'blue',
+            goal: false
         },
-        length: 2,
-        orientation: ORIENTATIONS.UP,
-        color: 'blue',
-        goal: false
-    },
-    {
-        origin: {
-            x: 4,
-            y: 1
+        {
+            origin: {x: 4, y: 1},
+            length: 2,
+            orientation: ORIENTATIONS.LEFT,
+            color: 'purple',
+            goal: false
+        }
+    ],
+    [ // level 2
+        {
+            origin: {x: 0, y: 3},
+            length: 2,
+            orientation: ORIENTATIONS.RIGHT,
+            color: 'red',
+            goal: true
         },
-        length: 2,
-        orientation: ORIENTATIONS.LEFT,
-        color: 'purple',
-        goal: false
-    }
+        {
+            origin: {x: 2, y: 4},
+            length: 3,
+            orientation: ORIENTATIONS.RIGHT,
+            color: 'orange',
+            goal: false
+        },
+        {
+            origin: {x: 5, y: 4},
+            length: 3,
+            orientation: ORIENTATIONS.UP,
+            color: 'yellow',
+            goal: false
+        },
+        {
+            origin: {x: 3, y: 1},
+            length: 3,
+            orientation: ORIENTATIONS.RIGHT,
+            color: 'green',
+            goal: false
+        },
+        {
+            origin: {x: 3, y: 2},
+            length: 2,
+            orientation: ORIENTATIONS.DOWN,
+            color: 'blue',
+            goal: false
+        },
+        {
+            origin: {x: 2, y: 1},
+            length: 2,
+            orientation: ORIENTATIONS.DOWN,
+            color: 'purple',
+            goal: false
+        }
+    ]
 ];

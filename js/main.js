@@ -17,8 +17,6 @@ const AUTHOR = 'Derk';
         let ModalDiv = doc.getElementById('modal-overlay');
 
         let CanvasElement = doc.getElementById('screen');
-        CanvasElement.setAttribute('width', TILE_SCREEN_DIM * BOARD_SIDE_COUNT); // pre-size canvas
-        CanvasElement.setAttribute('height', TILE_SCREEN_DIM * BOARD_SIDE_COUNT);
 
         let ChoiceIndicator = doc.getElementById('choice-indicator');
         let ButtonList = doc.getElementsByClassName('pg-btn');
@@ -26,6 +24,8 @@ const AUTHOR = 'Derk';
         let ForwardBtn = ButtonList.item(0);
         let BackwardBtn = ButtonList.item(1);
         let InfoBtn = ButtonList.item(2);
+
+        let LevelPanel = doc.getElementById('levels-bar');
 
         /// Main game objects:
         /** @type {Board|null} */
@@ -57,13 +57,13 @@ const AUTHOR = 'Derk';
                 ForwardBtn.addEventListener('click',
                     () => {
                         if (BoardObj.updateBlock(true)) BoardObj.renderBlocks();
-                        if (BoardObj.isSolved(GOAL_POS)) endGame();
+                        if (BoardObj.isSolved(GOAL_POS)) endGame(); // TODO: make GOAL_POS based on level number!
                     });
 
                 BackwardBtn.addEventListener('click',
                     () => {
                         if (BoardObj.updateBlock(false)) BoardObj.renderBlocks();
-                        if (BoardObj.isSolved(GOAL_POS)) endGame();
+                        if (BoardObj.isSolved(GOAL_POS)) endGame(); // TODO: make GOAL_POS based on level number!
                     });
                 
                 CanvasElement.addEventListener('click',
@@ -81,6 +81,15 @@ const AUTHOR = 'Derk';
 
                         if (choice_idx !== -1) ChoiceIndicator.innerText = `${choice_idx}`;
                     });
+                
+                // TODO: add level picker listener! Use button ids for matching level data to load.
+                LevelPanel.addEventListener('click', (event) => {
+                    let level_id = event.target.getAttribute('id') || -1;
+
+                    if (level_id !== -1) {
+                        // todo: reset board before loading fresh level data
+                    }
+                })
             }
 
             if (ModalObj !== null) {

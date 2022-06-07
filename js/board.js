@@ -43,27 +43,42 @@ class Board {
         if (!this.#screenElem) throw new Error('Cannot create board with no HTML canvas.');
         
         this.#screenCtx = this.#screenElem.getContext('2d');
-        this.#sideLen = sideLength;
+        this.#sideLen = 0;
         this.#blockList = [];
         this.#blockCount = 0;
         this.#ready = false;
         
         if (!blockData) throw new Error('Cannot create board with invalid blockData argument.');
         
-        this.#setupBlocks(blockData);
+        this.#setupBoard(sideLength, blockData);
         this.#selectionIdx = 0;
-        this.#targetBlockIdx = this.#blockList.findIndex((block) => { return block.isGoalBlock; });
+        this.#targetBlockIdx = -1;
 
         if (!this.isReady()) throw new Error('Invalid canvas arg or board dimensions.');
+
+        this.#targetBlockIdx = this.#findGoalBlock();
+
+        if(!this.#targetBlockIdx === -1) throw new Error('Invalid level data: missing block with goal:true .');
     }
 
     isReady() { return this.#ready; }
 
+    #setDimensions(sideLength) {
+        this.#sideLen = sideLength;
+
+        let side_pixels = TILE_SCREEN_DIM * this.#sideLen;
+        this.#screenElem.setAttribute('width', side_pixels);
+        this.#screenElem.setAttribute('height', side_pixels);
+    }
+
     /**
      * @method
+     * @param {number} sideLength See param `sideLength` in `Board()`.
      * @param {Array<object>} blockData See param `blockData` in `Board()`.
      */
-    #setupBlocks(blockData) {
+    #setupBoard(sideLength, blockData) {
+        this.#setDimensions(sideLength);
+
         if (blockData !== null) {
             let setup_iter = 0;
 
@@ -84,6 +99,10 @@ class Board {
 
         this.#blockCount = this.#blockList.length;
         this.#ready = this.#screenElem !== null && this.#blockCount > 0 && this.#sideLen > 4;
+    }
+
+    #findGoalBlock() {
+        this.#targetBlockIdx = this.#blockList.findIndex((block) => { return block.isGoalBlock; });
     }
 
     /**
@@ -174,5 +193,16 @@ class Board {
 
     isSolved(goalCoord) {
         return this.#blockList[this.#targetBlockIdx].hasTileLocation(goalCoord);
+    }
+
+    /**
+     * @method
+     * @description Clears all block data from this board. Resets `#ready` to false.
+     * @note Should be called for pre-reset before another level is loaded. 
+     */
+    clearBlocks() {
+        this.#blockList.length = 0;
+        this.#blockCount = 0;
+        this.#ready = false;
     }
 }
