@@ -38,14 +38,18 @@ const AUTHOR = 'Derk';
         let ModalObj = null;
 
         /// Helper functions:
-        function disableGameBtns() {
-            ForwardBtn.setAttribute('disabled', 'true');
-            BackwardBtn.setAttribute('disabled', 'true');
+        function activateGameBtns(canUse) {
+            let attr_value = 'false';
+
+            (canUse) ? attr_value = 'true' : attr_value = 'false';
+
+            ForwardBtn.setAttribute('disabled', attr_value);
+            BackwardBtn.setAttribute('disabled', attr_value);
         }
 
         function endLevel() {
             alert('The puzzle is solved!');
-            disableGameBtns();
+            activateGameBtns(false);
         }
 
         try {
@@ -93,7 +97,8 @@ const AUTHOR = 'Derk';
 
                     if (temp_id >= 0) {
                         LevelID = temp_id;
-                        BoardObj.resetLevel(BOARD_SIDE_LENGTHS[LevelID], DEMO_DATA[LevelID])
+                        BoardObj.resetLevel(BOARD_SIDE_LENGTHS[LevelID], DEMO_DATA[LevelID]);
+                        activateGameBtns(true);
                     }
                 })
             }
