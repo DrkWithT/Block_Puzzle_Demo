@@ -171,7 +171,7 @@ class Board {
         let render_iter = 0;
 
         for (; render_iter < this.#blockCount; render_iter++) {
-            // prepare color before dawring current block's tiles...
+            // prepare color before drawing current block's tiles...
             let block_temp = this.#blockList[render_iter];
             let render_color = block_temp.getDrawColor;
 
@@ -200,9 +200,21 @@ class Board {
      * @description Clears all block data from this board. Resets `#ready` to false.
      * @note Should be called for pre-reset before another level is loaded. 
      */
-    clearBlocks() {
+    #clearBlocks() {
         this.#blockList.length = 0;
         this.#blockCount = 0;
         this.#ready = false;
+    }
+
+    /**
+     * @method
+     * @description A special method to reset and reload the board with a fresh puzzle.
+     * @param {number} sideLength Tile count per board side.
+     * @param {Array<object>} blockData List of Block initialization data.
+     */
+    resetLevel(sideLength, blockData) {
+        this.#clearBlocks(); // clear all old block data
+        this.#setupBoard(sideLength, blockData); // load fresh puzzle data
+        this.renderBlocks(); // pre-render puzzle
     }
 }

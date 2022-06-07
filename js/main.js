@@ -19,7 +19,7 @@ const AUTHOR = 'Derk';
         let CanvasElement = doc.getElementById('screen');
 
         let ChoiceIndicator = doc.getElementById('choice-indicator');
-        let ButtonList = doc.getElementsByClassName('pg-btn');
+        let ButtonList = doc.getElementsByClassName('game-btn');
 
         let ForwardBtn = ButtonList.item(0);
         let BackwardBtn = ButtonList.item(1);
@@ -27,7 +27,10 @@ const AUTHOR = 'Derk';
 
         let LevelPanel = doc.getElementById('levels-bar');
 
-        /// Main game objects:
+        /// Main game variables & objects:
+        /** @type {number} The index of the current level's data. See DEMO_DATA in data.js! */
+        let LevelID = 0;
+
         /** @type {Board|null} */
         let BoardObj = null;
 
@@ -41,7 +44,7 @@ const AUTHOR = 'Derk';
             InfoBtn.setAttribute('disabled', 'true');
         }
 
-        function endGame() {
+        function endLevel() {
             alert('The puzzle is solved!');
             disableGameBtns();
         }
@@ -52,18 +55,18 @@ const AUTHOR = 'Derk';
         } catch (err) {
             console.log(`Setup error:\n${err}`);
         } finally {
-            // prepare listners safely: check if the game objects were setup well
+            // prepare listeners safely with initializer checks
             if (BoardObj !== null) {
                 ForwardBtn.addEventListener('click',
                     () => {
                         if (BoardObj.updateBlock(true)) BoardObj.renderBlocks();
-                        if (BoardObj.isSolved(GOAL_POS)) endGame(); // TODO: make GOAL_POS based on level number!
+                        if (BoardObj.isSolved(GOAL_POSITIONS[LevelID])) endLevel();
                     });
 
                 BackwardBtn.addEventListener('click',
                     () => {
                         if (BoardObj.updateBlock(false)) BoardObj.renderBlocks();
-                        if (BoardObj.isSolved(GOAL_POS)) endGame(); // TODO: make GOAL_POS based on level number!
+                        if (BoardObj.isSolved(GOAL_POSITIONS[LevelID])) endLevel();
                     });
                 
                 CanvasElement.addEventListener('click',
@@ -82,12 +85,12 @@ const AUTHOR = 'Derk';
                         if (choice_idx !== -1) ChoiceIndicator.innerText = `${choice_idx}`;
                     });
                 
-                // TODO: add level picker listener! Use button ids for matching level data to load.
                 LevelPanel.addEventListener('click', (event) => {
-                    let level_id = event.target.getAttribute('id') || -1;
+                    let temp_id = parseInt(event.target.getAttribute('id')) || -1;
 
-                    if (level_id !== -1) {
-                        // todo: reset board before loading fresh level data
+                    if (temp_id !== -1) {
+                        LevelID = temp_id;
+                        BoardObj.resetLevel(BOARD_SIDE_LENGTHS[LevelID], DEMO_DATA[LevelID])
                     }
                 })
             }

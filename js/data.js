@@ -3,20 +3,14 @@
  * @author Derek Tan
  */
 
-/** @type {Array<number>} Tile counts for a Board side in each level. */
+/** @type {Array<number>} Tile counts for the Board's side for each level. */
 const BOARD_SIDE_LENGTHS = [5, 6];
 const LEVEL_COUNT = BOARD_SIDE_LENGTHS.length;
 
 /** @type {Array<object>} The coordinates of the red block to be at for "winning" puzzles. */
 const GOAL_POSITIONS = [
-    { // level 1
-        x: 4,
-        y: 2
-    },
-    { // level 2
-        x: 5,
-        y: 3
-    }
+    {x: 4, y: 2}, // 1st level
+    {x: 5, y: 3}
 ];
 
 /**
