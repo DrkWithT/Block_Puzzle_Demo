@@ -17,7 +17,7 @@ const AUTHOR = 'Derk';
         let ModalDiv = doc.getElementById('modal-overlay');
 
         let CanvasElement = doc.getElementById('screen');
-        CanvasElement.setAttribute('width', TILE_SCREEN_DIM * BOARD_SIDE_COUNT);
+        CanvasElement.setAttribute('width', TILE_SCREEN_DIM * BOARD_SIDE_COUNT); // pre-size canvas
         CanvasElement.setAttribute('height', TILE_SCREEN_DIM * BOARD_SIDE_COUNT);
 
         let ChoiceIndicator = doc.getElementById('choice-indicator');
@@ -85,7 +85,7 @@ const AUTHOR = 'Derk';
 
             if (ModalObj !== null) {
                 InfoBtn.addEventListener('click', (event) => {
-                    if (event.button) ModalObj.toggleDisplay();
+                    if (event.button == 0) ModalObj.toggleDisplay(); // only accept left clicks
                     else event.preventDefault();
                 });
             }
