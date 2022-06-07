@@ -1,6 +1,6 @@
 /**
  * @file main.js
- * @version 0.1.0
+ * @version 0.2.0 Added multi level support.
  * @author Derek T
  */
 
@@ -50,9 +50,13 @@ const AUTHOR = 'Derk';
         }
 
         try {
-            BoardObj = new Board(CanvasElement, BOARD_SIDE_COUNT, DEMO_DATA);
+            // setup game objects
+            BoardObj = new Board(CanvasElement, BOARD_SIDE_LENGTHS[LevelID], DEMO_DATA[LevelID]);
             ModalObj = new Modal(ModalDiv);
+
+            BoardObj.renderBlocks(); // pre-render blocks before game begins
         } catch (err) {
+            // log any error from object setup
             console.log(`Setup error:\n${err}`);
         } finally {
             // prepare listeners safely with initializer checks
@@ -102,8 +106,6 @@ const AUTHOR = 'Derk';
                 });
             }
         }
-
-        BoardObj.renderBlocks(); // pre-render blocks before game begins
 
         console.log(`Block Puzzle by ${AUTHOR}`);
     }
