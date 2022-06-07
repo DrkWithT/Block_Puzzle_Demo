@@ -52,14 +52,13 @@ class Board {
         
         this.#setupBoard(sideLength, blockData);
         this.#selectionIdx = 0;
-        this.#targetBlockIdx = -1;
-
-        if (!this.isReady()) throw new Error('Invalid canvas arg or board dimensions.');
-
         this.#targetBlockIdx = this.#findGoalBlock();
 
         if(!this.#targetBlockIdx === -1) throw new Error('Invalid level data: missing block with goal:true .');
+        if (!this.isReady()) throw new Error('Invalid canvas arg or board dimensions.');
     }
+
+    getTargetBlockIdx() { return this.#targetBlockIdx; }
 
     isReady() { return this.#ready; }
 
@@ -102,7 +101,7 @@ class Board {
     }
 
     #findGoalBlock() {
-        this.#targetBlockIdx = this.#blockList.findIndex((block) => { return block.isGoalBlock; });
+        return this.#blockList.findIndex((block) => { return block.isGoalBlock; });
     }
 
     /**
@@ -192,7 +191,8 @@ class Board {
     }
 
     isSolved(goalCoord) {
-        return this.#blockList[this.#targetBlockIdx].hasTileLocation(goalCoord);
+        let temp_target_idx = this.getTargetBlockIdx();
+        return this.#blockList[temp_target_idx].hasTileLocation(goalCoord);
     }
 
     /**
@@ -215,6 +215,7 @@ class Board {
     resetLevel(sideLength, blockData) {
         this.#clearBlocks(); // clear all old block data
         this.#setupBoard(sideLength, blockData); // load fresh puzzle data
+        this.#findGoalBlock();
         this.renderBlocks(); // pre-render puzzle
     }
 }

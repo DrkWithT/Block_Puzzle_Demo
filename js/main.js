@@ -41,7 +41,6 @@ const AUTHOR = 'Derk';
         function disableGameBtns() {
             ForwardBtn.setAttribute('disabled', 'true');
             BackwardBtn.setAttribute('disabled', 'true');
-            InfoBtn.setAttribute('disabled', 'true');
         }
 
         function endLevel() {
@@ -90,9 +89,9 @@ const AUTHOR = 'Derk';
                     });
                 
                 LevelPanel.addEventListener('click', (event) => {
-                    let temp_id = parseInt(event.target.getAttribute('id')) || -1;
+                    let temp_id = parseInt(event.target.getAttribute('id'));
 
-                    if (temp_id !== -1) {
+                    if (temp_id >= 0) {
                         LevelID = temp_id;
                         BoardObj.resetLevel(BOARD_SIDE_LENGTHS[LevelID], DEMO_DATA[LevelID])
                     }
