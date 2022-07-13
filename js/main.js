@@ -1,11 +1,14 @@
 /**
  * @file main.js
  * @version 0.2.0 Added multi level support.
- * @author Derek T
+ * @author Derek T (DrkWithT at GitHub)
  */
 
-/** @type {string} My nickname. */
-const AUTHOR = 'Derk';
+/** @type {string} Major and minor version. */
+const VERSION = '0.2.0';
+
+/** @type {string} */
+const AUTHOR = 'Derek T (DrkWithT at GitHub)';
 
 (
     /**
@@ -107,6 +110,6 @@ const AUTHOR = 'Derk';
             }
         }
 
-        console.log(`Block Puzzle by ${AUTHOR}`);
+        console.log(`Block Puzzle ${VERSION} by ${AUTHOR}`);
     }
 )(document);
